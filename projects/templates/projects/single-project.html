@@ -2,6 +2,20 @@
 
 
 {% block content %}
-    <h1>SINGLE PROJECT TEMPLATE {{pk}}</h1>
+    <h3>Datos</h3>
+    {% if nombre %}
+        <p>{{ nombre }}</p>
+    {% else %}
+        <p>Empty Name</p>
+    {% endif %}
+
+    {% if descripcion %}
+        <p>{{ descripcion }}</p>
+    {% else %}
+        <p>Empty description</p>
+    {% endif %}
+
+
+        
 {% endblock content %}
     

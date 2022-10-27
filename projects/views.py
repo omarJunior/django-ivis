@@ -1,9 +1,34 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse
 
 # Create your views here.
+projectList = [
+    {
+        "id": 1,
+        "nombre": "valleapp",
+        "descripcion": "Valle app PRO",
+    },
+    {
+        "id": 2,
+        "nombre": "direktu",
+        "descripcion": "Direktu app PRO",
+    },
+    {
+        "id": 3,
+        "nombre": "Gestion Requerimientos",
+        "descripcion": "Gestion Requerimientos PRO",
+    }
+]
+
 def projects(request):
-    return render(request, "projects/projects.html", {})
+    msg = "All projects"
+    number = 10
+    context = {'msg': msg, 'number': number, 'projects': projectList}
+    return render(request, "projects/projects.html", context)
 
 def project(request, pk):
-    return render(request, "projects/single-project.html", {'pk': pk})
+    projectObj = None
+    for i in projectList:
+        print(str(i['id']))
+        if str(i['id']) == pk:
+            projectObj = i
+    return render(request, "projects/single-project.html", projectObj)
