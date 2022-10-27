@@ -28,7 +28,6 @@ def projects(request):
 def project(request, pk):
     projectObj = None
     for i in projectList:
-        print(str(i['id']))
         if str(i['id']) == pk:
             projectObj = i
     return render(request, "projects/single-project.html", projectObj)
