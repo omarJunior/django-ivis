@@ -2,7 +2,6 @@
 
 
 {% block content %}
-    <h3>Datos</h3>
     {% if nombre %}
         <p>{{ nombre }}</p>
     {% else %}
@@ -15,7 +14,7 @@
         <p>Empty description</p>
     {% endif %}
 
-
+    <a href="{% url 'projects' %}">Regresar</a>
         
 {% endblock content %}
     
