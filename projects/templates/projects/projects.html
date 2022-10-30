@@ -30,7 +30,10 @@
                 <td>{{pro.vote_total}}</td>
                 <td>{{pro.vote_ratio}}</td>
                 <td>{{pro.created}}</td>
-                <td><a href="{% url 'project_object' pro.id %}">View</a></td>
+                <td>
+                    <a href="{% url 'update_project' pro.id %}">Edit</a>
+                    <a href="{% url 'delete_project' pro.id %}">Delete</a>
+                </td>
             </tr>
         {% endfor %}
             
