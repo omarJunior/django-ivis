@@ -11,10 +11,9 @@
     <h1>Projects</h1>
     <table>
         <tr>
-            <th>ID</th>
             <th>Project</th>
             <th>Description</th>
-            <th>Votes</th>
+            <th>Positive Votes</th>
             <th>Ratio</th>
             <th>Created</th>
             <th>Action</th>
@@ -22,7 +21,6 @@
         
         {% for pro in projects %}
             <tr>
-                <td>{{pro.id}}</td>
                 <td>{{pro.title}}</td>
                 {% if pro.description %}
                     <td>{{pro.description}}</td>
@@ -30,7 +28,7 @@
                     <td>Empty description</td>
                 {% endif %}
                 <td>{{pro.vote_total}}</td>
-                <td>{{pro.vote_radio}}</td>
+                <td>{{pro.vote_ratio}}</td>
                 <td>{{pro.created}}</td>
                 <td><a href="{% url 'project_object' pro.id %}">View</a></td>
             </tr>
