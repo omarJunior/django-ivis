@@ -5,7 +5,8 @@ from .forms import ProjectForm
 # Create your views here.
 def projects(request):
     projects = Project.objects.all()
-    context =  {'projects': projects}
+    c_project = projects.count()
+    context =  {'projects': projects, 'count': c_project}
     return render(request, "projects/projects.html", context)
 
 def project(request, pk):
@@ -38,5 +39,9 @@ def updateProject(request, pk):
     return render(request, "projects/project_form.html", context)
 
 def deleteProject(request, pk):
-    Project.objects.filter(id = pk).delete()
-    return redirect('projects')
+    project = Project.objects.get(id = pk)
+    context = {'object': project}
+    if request.method == "POST":
+        project.delete()
+        return redirect('projects')
+    return render(request, 'projects/delete_template.html', context)
