@@ -21,7 +21,7 @@ projectList = [
 ]
 
 def projects(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-created')
     context =  {'projects': projects}
     return render(request, "projects/projects.html", context)
 
