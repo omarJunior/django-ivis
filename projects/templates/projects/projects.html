@@ -1,14 +1,41 @@
-{% extends 'main.html' %}    
+{% extends 'main.html' %}   
+
 
 {% block content %}
+<style>
+    table{
+        padding: 5px;
+    }
+</style>
 
     <h1>Projects</h1>
-    <ul>
-        {% for pro in projects  %}
-            <li>Name: <a href="{% url 'project_object' pro.id %}">{{pro.title}}</a>&nbsp;{{pro.description}}</li>
-            <hr>
-        {% endfor %}
-    </ul>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Project</th>
+            <th>Description</th>
+            <th>Votes</th>
+            <th>Ratio</th>
+            <th>Created</th>
+            <th>Action</th>
+        </tr>
         
+        {% for pro in projects %}
+            <tr>
+                <td>{{pro.id}}</td>
+                <td>{{pro.title}}</td>
+                {% if pro.description %}
+                    <td>{{pro.description}}</td>
+                {% else %}
+                    <td>Empty description</td>
+                {% endif %}
+                <td>{{pro.vote_total}}</td>
+                <td>{{pro.vote_radio}}</td>
+                <td>{{pro.created}}</td>
+                <td><a href="{% url 'project_object' pro.id %}">View</a></td>
+            </tr>
+        {% endfor %}
+            
+    </table>        
 
 {% endblock content %}

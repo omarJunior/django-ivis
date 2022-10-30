@@ -13,6 +13,13 @@
     {% else %}
         <p>Empty description</p>
     {% endif %}
+    
+    <h3>Tags:</h3>  
+    {% for tag in projectObj.tags.all %}
+        <span style="border:1px solid #48e">{{tag}}</span>
+    {% endfor %}
+   
+        
 
     <a href="{% url 'projects' %}">Regresar</a>
         
