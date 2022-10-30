@@ -2,14 +2,14 @@
 
 
 {% block content %}
-    {% if nombre %}
-        <p>{{ nombre }}</p>
+    {% if projectObj.title %}
+        <p>{{ projectObj.title }}</p>
     {% else %}
         <p>Empty Name</p>
     {% endif %}
 
-    {% if descripcion %}
-        <p>{{ descripcion }}</p>
+    {% if projectObj.description %}
+        <p>{{ projectObj.description }}</p>
     {% else %}
         <p>Empty description</p>
     {% endif %}

@@ -1,22 +1,11 @@
 {% extends 'main.html' %}    
 
 {% block content %}
-    <p>You are in the page: {{page}}</p>
-    
-    {% if number > 10 %}
-        <p>Number is greater than 10</p>
-    {% elif number == 10 %}
-        <p>Number is exactly 10</p>
-    {% else %}
-        <p>Number is not greater than 10</p>
-    {% endif %}
-    <hr>     
-    
+
     <h1>Projects</h1>
-    <h3>{{ msg }}</h3>
     <ul>
         {% for pro in projects  %}
-            <li>Name: <a href="{% url 'project_object' pro.id %}">{{pro.nombre}}</a>&nbsp;{{pro.descripcion}}</li>
+            <li>Name: <a href="{% url 'project_object' pro.id %}">{{pro.title}}</a>&nbsp;{{pro.description}}</li>
             <hr>
         {% endfor %}
     </ul>
