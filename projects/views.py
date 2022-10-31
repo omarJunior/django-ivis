@@ -1,3 +1,5 @@
+#https://github.com/divanov11/Django-2021
+
 from django.shortcuts import redirect, render
 from .models import *
 from .forms import ProjectForm
