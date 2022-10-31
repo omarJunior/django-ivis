@@ -2,13 +2,8 @@
 
 
 {% block content %}
-<style>
-    table{
-        padding: 5px;
-    }
-</style>
-
     <h1>Projects: {{count}}</h1>
+    <p>This is a paragraph</p>
     <table>
         <tr>
             <th>Project</th>
@@ -33,6 +28,7 @@
                 <td>
                     <a href="{% url 'update_project' pro.id %}">Edit</a>
                     <a href="{% url 'delete_project' pro.id %}">Delete</a>
+                    <a href="{% url 'project_object' pro.id %}">View</a>
                 </td>
             </tr>
         {% endfor %}

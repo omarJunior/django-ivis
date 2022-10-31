@@ -1,12 +1,6 @@
 {% extends 'main.html' %}
 
-
 {% block content %}
-<style>
-    button a{
-        text-decoration: none;
-    }
-</style>
     <form method="POST"> {% csrf_token %}
         <p>Are you sure  you want to delete "{{object}}"</p>
         <a href="{% url 'projects' %}">Go back</a>
