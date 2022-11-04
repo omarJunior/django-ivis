@@ -15,6 +15,10 @@ class Project(models.Model):
     updated = models.DateTimeField(auto_now = True)
     id = models.UUIDField(default = uuid.uuid4, unique=True, primary_key=True, editable=False)
 
+    class Meta:
+        verbose_name = "Project"
+        verbose_name_plural = "Projects"
+
     def __str__(self):
         return str(self.title)
 
@@ -32,6 +36,10 @@ class Review(models.Model):
     updated = models.DateTimeField(auto_now = True)
     id = models.UUIDField(default = uuid.uuid4, unique=True, primary_key=True, editable=False)
 
+    class Meta:
+        verbose_name = "Review"
+        verbose_name_plural = "Reviews"
+
     def __str__(self):
         return str(self.value)
 
@@ -41,6 +49,10 @@ class Tag(models.Model):
     created = models.DateTimeField(auto_now_add = True)
     updated = models.DateTimeField(auto_now = True)
     id = models.UUIDField(default = uuid.uuid4, unique=True, primary_key=True, editable=False)
+
+    class Meta:
+        verbose_name = "Tag"
+        verbose_name_plural = "Tags"
 
     def __str__(self):
         return str(self.name)
