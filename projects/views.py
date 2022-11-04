@@ -6,7 +6,7 @@ from .forms import ProjectForm
 
 # Create your views here.
 def projects(request):
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-created')
     c_project = projects.count()
     context =  {'projects': projects, 'count': c_project}
     return render(request, "projects/projects.html", context)
