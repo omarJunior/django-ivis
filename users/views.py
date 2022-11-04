@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.http.response import HttpResponse
+from users.models import *
 
 # Create your views here.
 def profiles(request):
-    context = {}
+    profiles = Profile.objects.all()
+    context = {'profiles': profiles}
     return render(request, "users/profiles.html", context)
     
