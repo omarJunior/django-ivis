@@ -13,7 +13,7 @@ def projects(request):
 
 def project(request, pk):
     projectObj = Project.objects.get(id = pk)
-    context = {'projectObj': projectObj}
+    context = {'project': projectObj}
     return render(request, "projects/single-project.html", context)
 
 def createProject(request):
