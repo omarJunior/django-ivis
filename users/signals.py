@@ -4,8 +4,8 @@ from django.dispatch import receiver
 
 from .models import Profile
 
-@receiver(post_save, sender=User)
-def createProfile(sender, instance, created, **kwargs):
+#@receiver(post_save, sender=User)
+def createProfileUser(sender, instance, created, **kwargs):
     if created:
         user = instance #user
         profile = Profile()
@@ -21,14 +21,15 @@ def createProfile(sender, instance, created, **kwargs):
             profile.name = instance.first_name
         if instance.email:
             profile.email = instance.email
+        if instance.username:
+            profile.username = instance.username
         profile.save()
 
-
-@receiver(post_delete, sender=Profile)
+#@receiver(post_delete, sender=Profile)
 def deleteUser(sender, instance, **kwargs):
     user = instance.user
     user.delete()
     print('Deleting user...')
 
-#post_save.connect(createProfile, sender=User)
-#post_delete.connect(deleteUser, sender = Profile)
+post_save.connect(createProfileUser, sender=User)
+post_delete.connect(deleteUser, sender = Profile)
