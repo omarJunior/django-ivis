@@ -46,7 +46,7 @@
           <div class="devInfo">
             <h3 class="devInfo__title">Skills</h3>
             <div class="devInfo__skills">
-              {% for skill in profile.skill_set.all %}
+              {% for skill in topSkills %}
                 <div class="devSkill">
                     <h4 class="devSkill__title">{{skill.name}}</h4>
                     <p class="devSkill__info">
@@ -57,33 +57,11 @@
                 
               <h3 class="devInfo__subtitle">Other Skills</h3>
               <div class="devInfo__otherSkills">
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Figma</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Vuejs</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>REST API</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>GraphQL</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>TypeScript</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Webpack</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>NextJS</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>Postgres</small>
-                </span>
-                <span class="tag tag--pill tag--sub tag--lg">
-                  <small>MongoDB</small>
-                </span>
+                {% for skill in otherSkills  %}
+                    <span class="tag tag--pill tag--sub tag--lg">
+                    <small>{{skill}}</small>
+                    </span>
+                {% endfor %}
               </div>
             </div>
           </div>
@@ -102,14 +80,13 @@
                             <span style="font-weight: bold;">{{project.vote_ratio}}%</span> Postitive
                             Feedback ({{project.vote_total}} Vote{{project.vote_total | pluralize:"s"}})
                           </p>
-                          <div class="project__tags">
-                            
+
+                          <div class="project__tags">  
                             {% for tag in project.tags.all %}
                                 <span class="tag tag--pill tag--main">
                                 <small>{{tag}}</small>
                                 </span>
                             {% endfor %}
-                                
                           </div>
                         </div>
                       </a>
