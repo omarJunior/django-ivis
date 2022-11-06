@@ -6,6 +6,7 @@ from users.models import *
 
 # Create your views here.
 def loginPage(request):
+    page = 'login'
     if request.user.is_authenticated:
         return redirect('profile')
 
@@ -27,12 +28,18 @@ def loginPage(request):
             return redirect('profile')
         else:
             messages.error(request,"Username or password is incorrect")
-    return render(request, "users/login_register.html")
+    context = {'page': page}
+    return render(request, "users/login_register.html", context)
 
 def logoutUser(request):
     logout(request)
     messages.success(request,"Username was logged out")
     return redirect('login')
+
+def registerUser(request):
+    page = 'register'
+    context = {'page': page}
+    return render(request, "users/login_register.html", context)
 
 def profiles(request):
     profiles = Profile.objects.all()
