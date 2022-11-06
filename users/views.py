@@ -1,7 +1,39 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate, login, logout
+from django.contrib import messages
+from django.contrib.auth.models import User
 from users.models import *
 
 # Create your views here.
+def loginPage(request):
+    if request.user.is_authenticated:
+        return redirect('profile')
+
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        try:
+            user = User.objects.get(username = username)
+        except:
+            messages.error(request,'Username does not exist')
+
+        user = authenticate(
+            request = request,
+            username = username,
+            password = password
+        )
+        if user is not None:
+            login(request, user)
+            return redirect('profile')
+        else:
+            messages.error(request,"Username or password is incorrect")
+    return render(request, "users/login_register.html")
+
+def logoutUser(request):
+    logout(request)
+    messages.success(request,"Username was logged out")
+    return redirect('login')
+
 def profiles(request):
     profiles = Profile.objects.all()
     context = {'profiles': profiles}
@@ -15,3 +47,4 @@ def userProfile(request, pk):
     
     context = {'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills}
     return render(request, "users/user-profile.html", context)
+
