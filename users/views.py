@@ -35,13 +35,14 @@ def loginPage(request):
 
 def logoutUser(request):
     logout(request)
-    messages.success(request,"Username was logged out")
+    messages.info(request,"Username was logged out")
     return redirect('login')
 
 def registerUser(request):
     page = 'register'
     form = CustomUserCreationForm()
     if request.method == "POST":
+        #registrar datos del authuser
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False) #create a instance
