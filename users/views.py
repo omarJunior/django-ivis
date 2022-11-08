@@ -39,7 +39,16 @@ def logoutUser(request):
 
 def registerUser(request):
     page = 'register'
-    context = {'page': page}
+    form = UserCreationForm()
+    if request.method == "POST":
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False) #create a instance
+            user.username = user.username.lower()
+            user.save()
+            messages.success(request, "User account was created")
+
+    context = {'page': page, 'form': form}
     return render(request, "users/login_register.html", context)
 
 def profiles(request):
