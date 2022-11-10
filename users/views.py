@@ -76,7 +76,9 @@ def userProfile(request, pk):
 def userAccount(request):
     if request.user.is_authenticated:
         profile = request.user.profile
-        context = {'profile': profile}
+        skills = profile.skill_set.all()
+        projects = profile.project_set.all()
+        context = {'profile': profile, 'skills': skills, 'projects': projects}
         return render(request, "users/account.html", context)
     return redirect('login')
 

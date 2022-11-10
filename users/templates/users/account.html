@@ -51,10 +51,10 @@
 
           <table class="settings__table">
             
-            {% for skill in profile.skill_set.all  %}
+            {% for skill in skills  %}
             <tr>
               <td class="settings__tableInfo">
-                <h4>{{skill.name}}</h4>
+                <h4>{{skill.name}} - <span style="font-size: 10px;">{{skill.created}}</span></h4>
                 <p>
                   {{skill.description}}
                 </p>
@@ -75,8 +75,7 @@
           </div>
 
           <table class="settings__table">
-           
-           {% for pro in profile.project_set.all %}
+           {% for pro in projects %}
            <tr>
             <td class="settings__thumbnail">
               <a href="{% url 'project' pro.id %}"><img src="{{pro.featured_image.url}}" alt="Project Thumbnail" /></a>
@@ -84,7 +83,7 @@
             <td class="settings__tableInfo">
               <a href="{% url 'project' pro.id %}">{{pro.title}}</a>
               <p>
-              {{pro.description}}
+                {{pro.description}}
               </p>
             </td>
             <td class="settings__tableActions">
