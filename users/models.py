@@ -24,6 +24,7 @@ class Profile(models.Model):
     class Meta:
         verbose_name = "Profile"
         verbose_name_plural = "Profiles"
+        ordering = ['created']
 
     def __str__(self):
         return str(self.username)
@@ -40,6 +41,7 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "Skill"
         verbose_name_plural = "Skills"
+        ordering = ['created']
 
     def __str__(self):
         return str(self.name)

@@ -3,5 +3,28 @@ from .models import *
 
 
 # Register your models here.
-admin.site.register(Profile)
-admin.site.register(Skill)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        'user',
+        'name',
+        'email',
+        'username',
+        'location',
+        'short_intro',
+        'profile_image',
+        'created',
+    )
+    list_filter = ('user',)
+
+class SkillAdmin(admin.ModelAdmin):
+    list_display = (
+        'owner',
+        'name',
+        'description',
+        'created',
+    )
+    search_fields = ('name',)
+    list_filter = ('owner', 'name',)
+
+admin.site.register(Profile, ProfileAdmin)
+admin.site.register(Skill, SkillAdmin)

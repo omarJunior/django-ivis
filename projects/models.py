@@ -20,6 +20,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Project"
         verbose_name_plural = "Projects"
+        ordering = ['created']
 
     def __str__(self):
         return str(self.title)
@@ -41,6 +42,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
+        ordering = ['created']
 
     def __str__(self):
         return str(self.value)
