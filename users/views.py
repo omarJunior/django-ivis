@@ -138,6 +138,7 @@ def deleteSkill(request, pk):
     profile = request.user.profile
     skill = profile.skill_set.get(id = pk)
     context = {'object': skill}
+    print("xd")
     if request.method == "POST":
         skill.delete()
         messages.success(request,'Skill wass deleted succesfully!')
