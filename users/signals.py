@@ -17,9 +17,11 @@ def createProfileUser(sender, instance, created, **kwargs):
 
 def updateProfile(sender, instance, created, **kwargs):
     if not created:
-        user = instance.user
-        user.first_name = instance.name
-        user.email = instance.email
+        profile = instance
+        user = profile.user
+        user.first_name = profile.name
+        user.email = profile.email
+        user.username = profile.username
         user.save()
 
 #@receiver(post_delete, sender=Profile)

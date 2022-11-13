@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
+from .forms import CustomUserCreationForm, ProfileForm
 from django.contrib.auth.models import User
 from users.models import *
 
@@ -72,7 +72,7 @@ def userProfile(request, pk):
     context = {'profile': profile, 'topSkills': topSkills, 'otherSkills': otherSkills}
     return render(request, "users/user-profile.html", context)
 
-@login_required
+@login_required(login_url="login")
 def userAccount(request):
     if request.user.is_authenticated:
         profile = request.user.profile
@@ -82,3 +82,9 @@ def userAccount(request):
         return render(request, "users/account.html", context)
     return redirect('login')
 
+
+@login_required(login_url="login")
+def editAccount(request):
+    form = ProfileForm()
+    context = {'form': form}
+    return render(request, "users/profile_form.html", context)
