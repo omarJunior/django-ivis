@@ -58,6 +58,8 @@ def deleteProject(request, pk):
     context = {'object': project}
     if request.method == "POST":
         project.delete()
+        print("xd")
+        print("xd")
         messages.success(request,'Project wass deleted succesfully!')
         return redirect('account')
     return render(request, 'delete_template.html', context)
