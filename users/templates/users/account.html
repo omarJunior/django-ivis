@@ -27,9 +27,7 @@
                 {% if profile.social_github %}
                     <li><a title="Github" href="{{profile.social_github}}" target="_blank"><i class="im im-github"></i></a></li>
                 {% endif %}
-                <!-- <li>
-                  <a title="Stackoverflow" href="#" target="_blank"><i class="im im-stackoverflow"></i>Stack</a>
-                </li> -->
+
                 {% if profile.social_twitter %}
                     <li><a title="Twitter" href="{{profile.social_twitter}}" target="_blank"><i class="im im-twitter"></i></a></li>
                 {% endif %}
@@ -80,7 +78,7 @@
 
           <div class="settings">
             <h3 class="settings__title">Projects</h3>
-            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="#"><i class="im im-plus"></i> Add Project</a>
+            <a class="tag tag--pill tag--sub settings__btn tag--lg" href="{% url 'create_project' %}"><i class="im im-plus"></i> Add Project</a>
           </div>
 
           <table class="settings__table">
@@ -96,8 +94,8 @@
               </p>
             </td>
             <td class="settings__tableActions">
-              <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-edit"></i> Edit</a>
-              <a class="tag tag--pill tag--main settings__btn" href="#"><i class="im im-x-mark-circle-o"></i>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'update_project' pro.id %}"><i class="im im-edit"></i> Edit</a>
+              <a class="tag tag--pill tag--main settings__btn" href="{% url 'delete_project' pro.id %}"><i class="im im-x-mark-circle-o"></i>
                 Delete</a>
             </td>
           </tr>
