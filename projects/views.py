@@ -60,4 +60,4 @@ def deleteProject(request, pk):
         project.delete()
         messages.success(request,'Project wass deleted succesfully!')
         return redirect('projects')
-    return render(request, 'projects/delete_template.html', context)
+    return render(request, 'delete_template.html', context)
