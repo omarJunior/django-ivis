@@ -26,10 +26,6 @@ def createProject(request):
             project = form.save(commit=False) #instance of project
             project.owner = profile
             project.title = project.title.title()
-            project.description = project.description
-            project.featured_image = project.featured_image
-            project.demo_link = project.demo_link
-            project.source_link = project.source_link
             project.save()
             #save many to many relationship
             form.save_m2m()
