@@ -140,5 +140,6 @@ def deleteSkill(request, pk):
     context = {'object': skill}
     if request.method == "POST":
         skill.delete()
+        messages.success(request,'Skill wass deleted succesfully!')
         return redirect('account')
     return render(request, 'projects/delete_template.html', context)
