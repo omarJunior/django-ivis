@@ -1,5 +1,6 @@
 #https://github.com/divanov11/Django-2021
 from django.shortcuts import redirect, render
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import ProjectForm
@@ -29,6 +30,7 @@ def createProject(request):
             project.save()
             #save many to many relationship
             form.save_m2m()
+            messages.success(request,'Project wass added succesfully!')
             return redirect('projects')
 
     context = {'form': form}
@@ -43,6 +45,7 @@ def updateProject(request, pk):
         form = ProjectForm(request.POST, request.FILES, instance = project)
         if form.is_valid():
             form.save()
+            messages.success(request,'Project wass updated succesfully!')
             return redirect('projects')
 
     context = {'form': form}
