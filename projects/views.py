@@ -46,7 +46,7 @@ def updateProject(request, pk):
         if form.is_valid():
             form.save()
             messages.success(request,'Project wass updated succesfully!')
-            return redirect('projects')
+            return redirect('account')
 
     context = {'form': form}
     return render(request, "projects/project_form.html", context)
@@ -59,5 +59,5 @@ def deleteProject(request, pk):
     if request.method == "POST":
         project.delete()
         messages.success(request,'Project wass deleted succesfully!')
-        return redirect('projects')
+        return redirect('account')
     return render(request, 'delete_template.html', context)
