@@ -51,7 +51,7 @@ def registerUser(request):
             user.save()
             messages.success(request, "User account was created")
             login(request, user)
-            return redirect('profile')
+            return redirect('edit_account')
         else:
             messages.error(request, 'An error has occured during registration')
 
@@ -85,6 +85,16 @@ def userAccount(request):
 
 @login_required(login_url="login")
 def editAccount(request):
-    form = ProfileForm()
+    profile = request.user.profile
+    form = ProfileForm(instance = profile)
     context = {'form': form}
+    if request.method == "POST":
+        form = ProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            user = form.save(commit=False)  #create instance
+            user.username = user.username.lower()
+            user.save()
+            messages.success(request, "User account was updated")
+            return redirect('account')
+            
     return render(request, "users/profile_form.html", context)
