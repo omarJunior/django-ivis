@@ -15,10 +15,11 @@ def projects(request):
     tags = Tag.objects.filter(name__icontains = search_query)
     
     projects = Project.objects.distinct().filter(
+        Q(owner__name__icontains = search_query)|
         Q(title__icontains = search_query)|
         Q(description__icontains = search_query)|
         Q(tags__in = tags))
-    context =  {'projects': projects}
+    context =  {'projects': projects, 'search_query': search_query}
     return render(request, "projects/projects.html", context)
 
 def project(request, pk):
