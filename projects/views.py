@@ -5,20 +5,11 @@ from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from .models import *
 from .forms import ProjectForm
+from .utils import searchProjects
 
 # Create your views here.
 def projects(request):
-    search_query = ""
-    if request.GET.get('searchQuery'):
-        search_query = request.GET.get('searchQuery')
-
-    tags = Tag.objects.filter(name__icontains = search_query)
-    
-    projects = Project.objects.distinct().filter(
-        Q(owner__name__icontains = search_query)|
-        Q(title__icontains = search_query)|
-        Q(description__icontains = search_query)|
-        Q(tags__in = tags))
+    projects, search_query = searchProjects(request)
     context =  {'projects': projects, 'search_query': search_query}
     return render(request, "projects/projects.html", context)
 
