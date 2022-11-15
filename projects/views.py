@@ -2,14 +2,24 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from .models import *
 from .forms import ProjectForm
 
 # Create your views here.
 def projects(request):
-    projects = Project.objects.all().order_by('-created')
-    c_project = projects.count()
-    context =  {'projects': projects, 'count': c_project}
+    search_query = ""
+    if request.GET.get('searchQuery'):
+        search_query = request.GET.get('searchQuery')
+
+    tags = Tag.objects.filter(name__icontains = search_query)
+    
+    projects = Project.objects.distinct().filter(
+        Q(title__icontains = search_query)|
+        Q(description__icontains = search_query)|
+        Q(tags__in = tags)
+        )
+    context =  {'projects': projects}
     return render(request, "projects/projects.html", context)
 
 def project(request, pk):
