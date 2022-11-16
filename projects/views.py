@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
 from .forms import ProjectForm
-from .utils import searchProjects, paginationProjects
+from .utils import paginationProjects, searchProjects
 
 # Create your views here.
 def projects(request):
