@@ -11,7 +11,7 @@ from .utils import searchProjects
 def projects(request):
     projects, search_query = searchProjects(request)
     page = request.GET.get('page')
-    results = 6
+    results = 3
     paginator = Paginator(projects, results) #projects query objects
     try:
         projects = paginator.page(page)

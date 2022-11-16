@@ -12,7 +12,7 @@ from .utils import searchProfiles
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
-        return redirect('profile')
+        return redirect('profiles')
 
     if request.method == "POST":
         username = request.POST.get('username')
@@ -29,7 +29,7 @@ def loginPage(request):
         )
         if user is not None:
             login(request, user)
-            return redirect('profile')
+            return redirect('profiles')
         else:
             messages.error(request,"Username or password is incorrect")
     context = {'page': page}
