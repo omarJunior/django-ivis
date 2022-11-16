@@ -21,7 +21,6 @@ class SkillAdmin(admin.ModelAdmin):
     list_display = (
         'owner',
         'name',
-        'description',
         'created',
     )
     search_fields = ('name',)

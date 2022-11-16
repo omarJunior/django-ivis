@@ -8,31 +8,27 @@ class ProjectAdmin(admin.ModelAdmin):
     list_display = (
         'owner',
         'title',
-        'description',
         'featured_image',
-        'demo_link',
-        'source_link',
-        'get_titles',
+        'get_tags',
         'vote_total',
         'vote_ratio',
         'created',
     )
     list_filter = ('owner', 'title',)
 
-    def get_titles(self, request):
+    def get_tags(self, request):
         if request.tags:
             tag = ""
             for t in request.tags.all():
                 tag += t.name + ","
             return tag[:-1]
         return ""
-    get_titles.short_description = "Tags"
+    get_tags.short_description = "Tags"
 
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
         'project',
-        'body',
         'value',
         'created',
     )
