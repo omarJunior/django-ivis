@@ -2,7 +2,7 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from .models import *
 from .forms import ProjectForm
 from .utils import searchProjects
@@ -10,6 +10,18 @@ from .utils import searchProjects
 # Create your views here.
 def projects(request):
     projects, search_query = searchProjects(request)
+    page = request.GET.get('page')
+    results = 6
+    paginator = Paginator(projects, results) #projects query objects
+    try:
+        projects = paginator.page(page)
+    except PageNotAnInteger:
+        page = 1
+        projects = paginator.page(page)
+    except EmptyPage:
+        page = paginator.num_pages
+        projects = paginator.page(page)
+
     context =  {'projects': projects, 'search_query': search_query}
     return render(request, "projects/projects.html", context)
 
@@ -32,7 +44,7 @@ def createProject(request):
             #save many to many relationship
             form.save_m2m()
             messages.success(request,'Project wass added succesfully!')
-            return redirect('projects')
+            return redirect('account')
 
     context = {'form': form}
     return render(request, "projects/project_form.html", context)

@@ -11,6 +11,7 @@ def createProfileUser(sender, instance, created, **kwargs):
         profile = Profile()
         profile.user = user
         profile.name = user.first_name
+        profile.last_name = user.last_name
         profile.email = user.email
         profile.username = user.username
         profile.save()
@@ -20,6 +21,7 @@ def updateProfile(sender, instance, created, **kwargs):
         profile = instance
         user = profile.user
         user.first_name = profile.name
+        user.last_name = profile.last_name
         user.email = profile.email
         user.username = profile.username
         user.save()

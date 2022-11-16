@@ -7,6 +7,7 @@ class ProfileAdmin(admin.ModelAdmin):
     list_display = (
         'user',
         'name',
+        'last_name',
         'email',
         'username',
         'location',
@@ -14,7 +15,7 @@ class ProfileAdmin(admin.ModelAdmin):
         'profile_image',
         'created',
     )
-    list_filter = ('user',)
+    list_filter = ('user', 'last_name',)
 
 class SkillAdmin(admin.ModelAdmin):
     list_display = (

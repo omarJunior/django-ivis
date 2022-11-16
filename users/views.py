@@ -63,7 +63,6 @@ def profiles(request):
     profiles, search_query = searchProfiles(request)
     context = {'profiles': profiles, 'search_query': search_query,}
     return render(request, "users/profiles.html", context)
-    
 
 def userProfile(request, pk):
     profile = Profile.objects.get(id = pk)

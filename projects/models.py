@@ -20,7 +20,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Project"
         verbose_name_plural = "Projects"
-        ordering = ['created']
+        ordering = ['-created']
 
     def __str__(self):
         return str(self.title)
