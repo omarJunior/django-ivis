@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jet',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -70,7 +71,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'devsearch.wsgi.application'
+X_FRAME_OPTIONS = 'SAMEORIGIN'
 
+JET_DEFAULT_THEME = 'light-gray'
+JET_SIDE_MENU_COMPACT = True
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
