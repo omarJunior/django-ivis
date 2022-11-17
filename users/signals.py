@@ -29,7 +29,8 @@ def updateProfile(sender, instance, created, **kwargs):
 #@receiver(post_delete, sender=Profile)
 def deleteUser(sender, instance, **kwargs):
     user = instance.user
-    user.delete()
+    if user is not None:
+        user.delete()
 
 post_save.connect(createProfileUser, sender=User)
 post_save.connect(updateProfile, sender=Profile)

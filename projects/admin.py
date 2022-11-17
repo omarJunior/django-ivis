@@ -28,11 +28,26 @@ class ProjectAdmin(admin.ModelAdmin):
 
 class ReviewAdmin(admin.ModelAdmin):
     list_display = (
+        'get_owner',
         'project',
+        'get_body',
         'value',
         'created',
     )
     list_filter = ('project',)
+
+    def get_owner(self, request):
+        if request.owner:
+            return f"{request.owner.name}"
+        return ""
+        
+    def get_body(self, request):
+        if request.body:
+            return f"{request.body.upper()}"
+        return ""
+
+    get_owner.short_description = "Full Name"
+    get_body.short_description = "Body"
 
 class TagAdmin(admin.ModelAdmin):
     list_display = (

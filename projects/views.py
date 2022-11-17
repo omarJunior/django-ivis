@@ -3,7 +3,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .models import *
-from .forms import ProjectForm
+from .forms import ProjectForm, ReviewForm
 from .utils import paginationProjects, searchProjects
 
 # Create your views here.
@@ -15,8 +15,23 @@ def projects(request):
     return render(request, "projects/projects.html", context)
 
 def project(request, pk):
+    profile = request.user.profile
     projectObj = Project.objects.get(id = pk)
-    context = {'project': projectObj}
+    form = ReviewForm()
+    if request.method == "POST":
+        if Review.objects.filter(owner = profile, project=projectObj).count() > 0:
+            messages.success(request,'There is already a message from you, please edit!') 
+            return redirect('project', pk = pk)
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            rewiew = form.save(commit=False)
+            rewiew.owner = profile
+            rewiew.project = projectObj
+            rewiew.save()
+            messages.success(request,'Message wass added succesfully!')
+            return redirect('project', pk = pk)
+
+    context = {'project': projectObj, 'form': form}
     return render(request, "projects/single-project.html", context)
 
 @login_required(login_url="login")

@@ -28,7 +28,7 @@ class Profile(models.Model):
         ordering = ['created']
 
     def __str__(self):
-        return str(self.username)
+        return str(self.name) + " " + str(self.last_name)
 
 
 class Skill(models.Model):
@@ -42,7 +42,7 @@ class Skill(models.Model):
     class Meta:
         verbose_name = "Skill"
         verbose_name_plural = "Skills"
-        ordering = ['created']
+        ordering = ['-created']
 
     def __str__(self):
         return str(self.name)
