@@ -42,7 +42,7 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Review"
         verbose_name_plural = "Reviews"
-        unique_together = [['owner', 'project']] #unique couple
+        unique_together = [['owner', 'project']] #unique constraint couple
         ordering = ['-created']
 
     def __str__(self):
