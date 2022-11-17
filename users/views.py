@@ -29,7 +29,7 @@ def loginPage(request):
         )
         if user is not None:
             login(request, user)
-            return redirect('profiles')
+            return redirect(request.GET['next'] if 'next' in request.GET else 'profiles')
         else:
             messages.error(request,"Username or password is incorrect")
     context = {'page': page}
@@ -104,7 +104,6 @@ def editAccount(request):
 
 @login_required(login_url="login")
 def createSkill(request):
-    profile = request.user.profile
     form = SkillForm()
     context = {}
     context = {'form': form}
@@ -112,7 +111,7 @@ def createSkill(request):
         form = SkillForm(request.POST)
         if form.is_valid():
             skill = form.save(commit=False)
-            skill.owner = profile
+            skill.owner = request.user.profile
             skill.save()
             messages.success(request,'Skill wass added succesfully!')
             return redirect('account')

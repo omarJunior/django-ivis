@@ -14,19 +14,14 @@ def projects(request):
     context =  {'projects': projects, 'search_query': search_query, 'custom_range': custom_range}
     return render(request, "projects/projects.html", context)
 
-@login_required(login_url="login")
 def project(request, pk):
-    profile = request.user.profile
     projectObj = Project.objects.get(id = pk)
     form = ReviewForm()
     if request.method == "POST":
-        if Review.objects.filter(owner = profile, project=projectObj).count() > 0:
-            messages.success(request,'There is already a message from you, please edit!') 
-            return redirect('project', pk = pk)
         form = ReviewForm(request.POST)
         if form.is_valid():
             rewiew = form.save(commit=False)
-            rewiew.owner = profile
+            rewiew.owner = request.user.profile
             rewiew.project = projectObj
             rewiew.save()
             projectObj.getVoteCount
