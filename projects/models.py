@@ -18,6 +18,11 @@ class Project(models.Model):
     id = models.UUIDField(default = uuid.uuid4, unique=True, primary_key=True, editable=False)
 
     @property
+    def reviewers(self):
+        queryset = self.review_set.all().values_list('owner__id',flat=True)
+        return queryset
+
+    @property
     def getVoteCount(self):
         reviews = self.review_set.all()
         upVotes = reviews.filter(value="up").count()
@@ -30,7 +35,7 @@ class Project(models.Model):
     class Meta:
         verbose_name = "Project"
         verbose_name_plural = "Projects"
-        ordering = ['-created']
+        ordering = ['-vote_ratio', '-vote_total']
 
     def __str__(self):
         return str(self.title)

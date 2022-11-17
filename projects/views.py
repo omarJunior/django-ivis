@@ -14,6 +14,7 @@ def projects(request):
     context =  {'projects': projects, 'search_query': search_query, 'custom_range': custom_range}
     return render(request, "projects/projects.html", context)
 
+@login_required(login_url="login")
 def project(request, pk):
     profile = request.user.profile
     projectObj = Project.objects.get(id = pk)
