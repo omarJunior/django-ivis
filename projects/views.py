@@ -28,6 +28,7 @@ def project(request, pk):
             rewiew.owner = profile
             rewiew.project = projectObj
             rewiew.save()
+            projectObj.getVoteCount
             messages.success(request,'Message wass added succesfully!')
             return redirect('project', pk = pk)
 

@@ -17,6 +17,16 @@ class Project(models.Model):
     updated = models.DateTimeField(auto_now = True)
     id = models.UUIDField(default = uuid.uuid4, unique=True, primary_key=True, editable=False)
 
+    @property
+    def getVoteCount(self):
+        reviews = self.review_set.all()
+        upVotes = reviews.filter(value="up").count()
+        totalVotes = reviews.count()
+        ratio = (upVotes / totalVotes) * 100
+        self.vote_total = totalVotes
+        self.vote_ratio = ratio
+        self.save()
+
     class Meta:
         verbose_name = "Project"
         verbose_name_plural = "Projects"
