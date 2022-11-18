@@ -11,7 +11,7 @@
           <a href="{% url 'user_profile' mensaje.sender.id %}" class="message__author">{{mensaje.sender.name}}</a>
           <p class="message__date">{{mensaje.created}}</p>
           <div class="message__body">
-            {{mensaje.body}}
+            {{mensaje.body|linebreaksbr}}
           </div>
       </div>
     </div>
