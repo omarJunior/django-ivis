@@ -4,6 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, ProfileForm, SkillForm
 from django.contrib.auth.models import User
+from django.contrib import messages
 from django.db.models import Q
 from users.models import *
 from .utils import paginationProfiles, searchProfiles
@@ -148,5 +149,21 @@ def deleteSkill(request, pk):
 
 @login_required(login_url="login")
 def inbox(request):
-    context = {}
+    profile = request.user.profile
+    mensajes = Message.objects.filter(recipient = profile)
+    #mensajes = profile.recipient_message.all() #related name
+    no_leidos = mensajes.filter(is_read = False).count()
+    context = {'mensajes': mensajes, 'no_leidos': no_leidos}
     return render(request, "users/inbox.html", context)
+
+
+@login_required(login_url="login")
+def viewMessage(request, pk):
+    profile = request.user.profile
+    mensaje_object = Message.objects.get(id = pk, recipient = profile)
+    #mensaje_object = profile.recipient_message.get(id = pk)
+    if mensaje_object.is_read == False:
+        mensaje_object.is_read = True
+        mensaje_object.save()
+    context = {'mensaje': mensaje_object}
+    return render(request, "users/message.html", context)
