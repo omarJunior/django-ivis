@@ -26,5 +26,18 @@ class SkillAdmin(admin.ModelAdmin):
     search_fields = ('name',)
     list_filter = ('owner', 'name',)
 
+class MessageAdmin(admin.ModelAdmin):
+    list_display = (
+        'sender',
+        'recipient',
+        'name',
+        'email',
+        'subject',
+        'body',
+        'is_read',
+        'created',
+    )
+
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Skill, SkillAdmin)
+admin.site.register(Message, MessageAdmin)
