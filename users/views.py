@@ -144,3 +144,9 @@ def deleteSkill(request, pk):
         messages.success(request,'Skill wass deleted succesfully!')
         return redirect('account')
     return render(request, 'delete_template.html', context)
+
+
+@login_required(login_url="login")
+def inbox(request):
+    context = {}
+    return render(request, "users/inbox.html", context)
