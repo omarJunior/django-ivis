@@ -28,7 +28,9 @@ class Profile(models.Model):
         ordering = ['created']
 
     def __str__(self):
-        return str(self.name) + " " + str(self.last_name)
+        if self.last_name:
+            return str(self.name) + " " + str(self.last_name)
+        return self.name
 
 
 class Skill(models.Model):
