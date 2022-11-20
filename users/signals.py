@@ -19,13 +19,17 @@ def createProfileUser(sender, instance, created, **kwargs):
         profile.save()  
         subject = "Profile created succesfully!"
         message = f"Hello, welcome {profile.user}"
-        send_mail(
-            subject,
-            message,
-            settings.EMAIL_HOST_USER,
-            [f'{profile.email}'],
-            fail_silently = False,
-        )
+        try:
+            send_mail(
+                subject,
+                message,
+                settings.EMAIL_HOST_USER,
+                [f'{profile.email}'],
+                fail_silently = False,
+            )
+        except:
+            print("No tiene email")
+            pass
 
 
 #@receiver(post_save, sender=Profile)
