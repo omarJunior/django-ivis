@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, ProfileForm, SkillForm
+from .forms import CustomUserCreationForm, ProfileForm, SkillForm, MessageForm
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.db.models import Q
@@ -13,7 +13,7 @@ from .utils import paginationProfiles, searchProfiles
 def loginPage(request):
     page = 'login'
     if request.user.is_authenticated:
-        return redirect('profiles')
+        return redirect('account')
 
     if request.method == "POST":
         username = request.POST['username'].lower()
@@ -171,5 +171,24 @@ def viewMessage(request, pk):
 
 def createMessage(request, pk):
     recipient = Profile.objects.get(id = pk)
-    context = {'recipient': recipient}
+    form = MessageForm()
+    try:
+        sender = request.user.profile
+    except:
+        sender = None
+
+    if request.method == "POST":
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit = False)
+            message.sender = sender
+            message.recipient = recipient
+            if sender is not None:
+                message.name = sender.name
+                message.email = sender.email
+            message.save()
+            messages.success(request, "Your message was succesfully sended!")
+            return redirect('user_profile', pk=recipient.id)
+
+    context = {'recipient': recipient, 'form': form}
     return render(request, "users/message_form.html", context)
