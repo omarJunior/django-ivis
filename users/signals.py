@@ -1,10 +1,20 @@
 from django.contrib.auth.models import User
+from django.contrib.auth.signals import user_logged_in, user_logged_out
 from django.db.models.signals import post_save, post_delete
 from django.core.mail import send_mail
 from django.dispatch import receiver
 from django.conf import settings
 
 from .models import Profile
+
+
+def do_login(sender, user, request, **kwargs):
+    print(user)
+    print("log in")
+
+def do_logout(sender, user, request, **kwargs):
+    print(user)
+    print('logout')
 
 #@receiver(post_save, sender=User)
 def createProfileUser(sender, instance, created, **kwargs):
@@ -49,6 +59,9 @@ def deleteUser(sender, instance, **kwargs):
     if user is not None:
         user.delete()
 
+
+user_logged_in.connect(do_login)
+user_logged_out.connect(do_logout)
 post_save.connect(createProfileUser, sender=User)
 post_save.connect(updateProfile, sender=Profile)
 post_delete.connect(deleteUser, sender = Profile)
