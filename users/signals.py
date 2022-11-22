@@ -9,12 +9,10 @@ from .models import Profile
 
 
 def do_login(sender, user, request, **kwargs):
-    print(user)
-    print("log in")
+    print("loggin", user)
 
 def do_logout(sender, user, request, **kwargs):
-    print(user)
-    print('logout')
+    print('logout, bye', user)
 
 #@receiver(post_save, sender=User)
 def createProfileUser(sender, instance, created, **kwargs):

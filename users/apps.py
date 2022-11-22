@@ -8,3 +8,4 @@ class UsersConfig(AppConfig):
     #activar los signals
     def ready(self):
         import users.signals
+        return super().ready()
