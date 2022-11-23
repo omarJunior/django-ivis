@@ -1,5 +1,9 @@
 from django.contrib.auth.models import User
-from django.contrib.auth.signals import user_logged_in, user_logged_out
+from django.contrib.auth.signals import (
+    user_login_failed,
+    user_logged_in, 
+    user_logged_out
+    )
 from django.db.models.signals import post_save, post_delete
 from django.core.mail import send_mail
 from django.dispatch import receiver
@@ -7,9 +11,11 @@ from django.conf import settings
 
 from .models import Profile
 
+def do_login_failed(sender, credentials: dict, request=None, **kwargs):
+    print("Logging failed")
 
 def do_login(sender, user, request, **kwargs):
-    print("loggin", user)
+    print("logging succesfully", user)
 
 def do_logout(sender, user, request, **kwargs):
     print('logout, bye', user)
@@ -58,6 +64,7 @@ def deleteUser(sender, instance, **kwargs):
         user.delete()
 
 
+user_login_failed.connect(do_login_failed)
 user_logged_in.connect(do_login)
 user_logged_out.connect(do_logout)
 post_save.connect(createProfileUser, sender=User)
